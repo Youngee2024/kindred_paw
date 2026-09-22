@@ -1,16 +1,17 @@
-import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import FormField from '../components/FormField'
 import PhotoUpload from '../components/PhotoUpload'
 import OnboardingShell from '../components/OnboardingShell'
+import useApplication from '../context/useApplication'
 
 export default function OwnerInfo() {
   const navigate = useNavigate()
-  const [form, setForm] = useState({ name: '', email: '', phone: '', address: '', photo: '' })
-  const update = (field) => (event) => setForm((current) => ({ ...current, [field]: event.target.value }))
+  const { application, updateSection } = useApplication()
+  const form = application.owner
+  const update = (field) => (event) => updateSection('owner', (current) => ({ ...current, [field]: event.target.value }))
   const choosePhoto = (event) => {
     const file = event.target.files?.[0]
-    if (file) setForm((current) => ({ ...current, photo: URL.createObjectURL(file) }))
+    if (file) updateSection('owner', (current) => ({ ...current, photo: URL.createObjectURL(file) }))
   }
   const submit = (event) => { event.preventDefault(); navigate('/pet-info') }
 

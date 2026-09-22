@@ -7,18 +7,35 @@ import twitter from '../../Icons/mdi_twitter.png'
 import facebook from '../../Icons/ri_facebook-fill.png'
 import linkedin from '../../Icons/ri_linkedin-fill.png'
 import google from '../../Icons/flat-color-icons_google.png'
+import useApplication from '../context/useApplication'
 
 const providers = [['Twitter', twitter], ['Facebook', facebook], ['LinkedIn', linkedin], ['Google', google]]
 
 export default function AuthPage({ mode }) {
   const signup = mode === 'signup'
   const navigate = useNavigate()
-  const [form, setForm] = useState({ name: '', email: '', password: '' })
+  const { application, updateSection } = useApplication()
+  const [form, setForm] = useState({ name: application.account.name, email: application.account.email, password: '' })
+  const [notice, setNotice] = useState('')
   const update = (field) => (event) => setForm((current) => ({ ...current, [field]: event.target.value }))
   const submit = (event) => {
     event.preventDefault()
-    navigate(signup ? '/owner-info' : '/')
+    updateSection('account', { name: form.name, email: form.email })
+    if (signup) {
+      updateSection('owner', (owner) => ({
+        ...owner,
+        name: owner.name || form.name,
+        email: owner.email || form.email,
+      }))
+      navigate('/owner-info')
+      return
+    }
+    if (application.pet.name) navigate('/complete')
+    else if (application.owner.name) navigate('/pet-info')
+    else navigate('/owner-info')
   }
+
+  const unavailable = (feature) => setNotice(`${feature} is not connected in this demo. Please continue with email.`)
 
   return (
     <main className="min-h-screen bg-[#f3e9e7] lg:grid lg:grid-cols-2">
@@ -41,13 +58,14 @@ export default function AuthPage({ mode }) {
             {signup && <FormField label="Full name" id="name" type="text" autoComplete="name" required placeholder="Adedotun Prisca" value={form.name} onChange={update('name')} />}
             <FormField label="Email address" id="email" type="email" autoComplete="email" required placeholder="you@example.com" value={form.email} onChange={update('email')} />
             <FormField label="Password" id="password" type="password" autoComplete={signup ? 'new-password' : 'current-password'} required minLength="6" placeholder="At least 6 characters" value={form.password} onChange={update('password')} />
-            {!signup && <div className="text-right"><button type="button" className="text-sm font-semibold text-red-900 hover:underline">Forgot password?</button></div>}
+            {!signup && <div className="text-right"><button type="button" onClick={() => unavailable('Password recovery')} className="text-sm font-semibold text-red-900 hover:underline">Forgot password?</button></div>}
             <button className="w-full rounded-xl bg-red-950 px-5 py-3.5 font-semibold text-white shadow-lg shadow-red-950/15 transition hover:bg-red-900">{signup ? 'Create account' : 'Log in'}</button>
           </form>
           <p className="my-7 text-center text-sm text-stone-600">or continue with</p>
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-            {providers.map(([name, icon]) => <button key={name} type="button" aria-label={`Continue with ${name}`} className="flex items-center justify-center gap-2 rounded-xl border border-red-950/10 bg-white px-3 py-3 text-sm font-semibold text-stone-700 shadow-sm transition hover:border-red-950/30"><img src={icon} alt="" className="size-5 object-contain" /><span className="hidden sm:inline">{name}</span></button>)}
+            {providers.map(([name, icon]) => <button key={name} type="button" onClick={() => unavailable(`${name} sign-in`)} aria-label={`Continue with ${name}`} className="flex items-center justify-center gap-2 rounded-xl border border-red-950/10 bg-white px-3 py-3 text-sm font-semibold text-stone-700 shadow-sm transition hover:border-red-950/30"><img src={icon} alt="" className="size-5 object-contain" /><span className="hidden sm:inline">{name}</span></button>)}
           </div>
+          {notice && <p role="status" className="mt-4 rounded-xl bg-amber-50 px-4 py-3 text-sm text-amber-900">{notice}</p>}
           <p className="mt-8 text-center text-stone-600">
             {signup ? 'Already have an account?' : 'New to Maya?'}{' '}
             <Link to={signup ? '/login' : '/signup'} className="font-semibold text-red-950 hover:underline">{signup ? 'Log in' : 'Sign up'}</Link>

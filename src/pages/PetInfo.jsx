@@ -1,8 +1,8 @@
-import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import FormField from '../components/FormField'
 import PhotoUpload from '../components/PhotoUpload'
 import OnboardingShell from '../components/OnboardingShell'
+import useApplication from '../context/useApplication'
 
 const petTypes = [['', 'Select pet type'], ['dog', 'Dog'], ['cat', 'Cat']]
 const dogBreeds = [['', 'Select breed'], ['german-shepherd', 'German Shepherd'], ['bulldog', 'Bulldog'], ['mixed', 'Mixed breed'], ['other', 'Other']]
@@ -10,11 +10,12 @@ const weights = [['', 'Select weight'], ['0-10', 'Up to 10 kg'], ['11-15', '11â€
 
 export default function PetInfo() {
   const navigate = useNavigate()
-  const [form, setForm] = useState({ name: '', type: '', breed: '', birthday: '', weight: '', medication: '', medicationDetails: '', surgery: '', photo: '' })
-  const update = (field) => (event) => setForm((current) => ({ ...current, [field]: event.target.value }))
+  const { application, updateSection } = useApplication()
+  const form = application.pet
+  const update = (field) => (event) => updateSection('pet', (current) => ({ ...current, [field]: event.target.value }))
   const choosePhoto = (event) => {
     const file = event.target.files?.[0]
-    if (file) setForm((current) => ({ ...current, photo: URL.createObjectURL(file) }))
+    if (file) updateSection('pet', (current) => ({ ...current, photo: URL.createObjectURL(file) }))
   }
   const submit = (event) => { event.preventDefault(); navigate('/complete') }
 

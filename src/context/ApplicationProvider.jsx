@@ -2,25 +2,54 @@ import { useEffect, useState } from 'react'
 import { ApplicationContext } from './applicationContext'
 
 const storageKey = 'kindredpaw-application'
+const emptyOwner = { name: '', email: '', phone: '', address: '', photo: '' }
+const emptyPet = { name: '', type: '', breed: '', birthday: '', weight: '', medication: '', medicationDetails: '', surgery: '', photo: '' }
 
 const emptyApplication = {
   account: { name: '', email: '' },
-  owner: { name: '', email: '', phone: '', address: '', photo: '' },
-  pet: { name: '', type: '', breed: '', birthday: '', weight: '', medication: '', medicationDetails: '', surgery: '', photo: '' },
+  owner: emptyOwner,
+  pet: emptyPet,
   submitted: false,
   reference: '',
+  pets: [],
+  applications: [],
+  claims: [],
 }
+
+const makeId = (prefix) => `${prefix}-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 7)}`
 
 function loadApplication() {
   try {
     const saved = JSON.parse(localStorage.getItem(storageKey))
-    return saved ? {
+    if (!saved) return emptyApplication
+
+    const restored = {
       ...emptyApplication,
       ...saved,
       account: { ...emptyApplication.account, ...saved.account },
-      owner: { ...emptyApplication.owner, ...saved.owner, photo: '' },
-      pet: { ...emptyApplication.pet, ...saved.pet, photo: '' },
-    } : emptyApplication
+      owner: { ...emptyOwner, ...saved.owner, photo: '' },
+      pet: { ...emptyPet, ...saved.pet, photo: '' },
+      pets: saved.pets || [],
+      applications: saved.applications || [],
+      claims: saved.claims || [],
+    }
+
+    // Migrate applications submitted before the dashboard existed.
+    if (restored.submitted && restored.reference && restored.pet.name && !restored.applications.some((item) => item.reference === restored.reference)) {
+      const petId = `pet-${restored.reference.toLowerCase()}`
+      restored.pets = [{ ...restored.pet, id: petId, createdAt: new Date().toISOString(), photo: '' }, ...restored.pets]
+      restored.applications = [{
+        id: `app-${restored.reference.toLowerCase()}`,
+        reference: restored.reference,
+        petId,
+        petName: restored.pet.name,
+        submittedAt: new Date().toISOString(),
+        status: 'Submitted',
+        policyStatus: 'Under review',
+        plan: 'Complete Care',
+      }, ...restored.applications]
+    }
+    return restored
   } catch {
     return emptyApplication
   }
@@ -35,6 +64,7 @@ export default function ApplicationProvider({ children }) {
         ...application,
         owner: { ...application.owner, photo: '' },
         pet: { ...application.pet, photo: '' },
+        pets: application.pets.map((pet) => ({ ...pet, photo: '' })),
       }))
     } catch {
       // The journey remains usable if browser storage is unavailable.
@@ -45,24 +75,96 @@ export default function ApplicationProvider({ children }) {
     setApplication((current) => ({
       ...current,
       [section]: typeof value === 'function' ? value(current[section]) : value,
+      submitted: section === 'owner' || section === 'pet' ? false : current.submitted,
+      reference: section === 'owner' || section === 'pet' ? '' : current.reference,
+    }))
+  }
+
+  const submitApplication = () => {
+    setApplication((current) => {
+      if (current.submitted && current.reference) return current
+      const reference = `KP-${Date.now().toString(36).slice(-6).toUpperCase()}`
+      const petId = makeId('pet')
+      const now = new Date().toISOString()
+      const petRecord = { ...current.pet, id: petId, createdAt: now, photo: '' }
+      const applicationRecord = {
+        id: makeId('app'),
+        reference,
+        petId,
+        petName: current.pet.name,
+        submittedAt: now,
+        status: 'Submitted',
+        policyStatus: 'Under review',
+        plan: 'Complete Care',
+      }
+      return {
+        ...current,
+        submitted: true,
+        reference,
+        pets: [petRecord, ...current.pets],
+        applications: [applicationRecord, ...current.applications],
+      }
+    })
+  }
+
+  const resetApplication = () => {
+    setApplication((current) => ({
+      ...current,
+      pet: emptyPet,
       submitted: false,
       reference: '',
     }))
   }
 
-  const submitApplication = () => {
-    const reference = `KP-${Date.now().toString(36).slice(-6).toUpperCase()}`
-    setApplication((current) => ({ ...current, submitted: true, reference }))
+  const addPet = (pet) => {
+    const petRecord = { ...emptyPet, ...pet, id: makeId('pet'), createdAt: new Date().toISOString(), photo: '' }
+    setApplication((current) => ({ ...current, pets: [petRecord, ...current.pets] }))
+    return petRecord.id
   }
 
-  const resetApplication = () => {
-    localStorage.removeItem(storageKey)
-    setApplication(emptyApplication)
+  const updatePet = (id, updates) => {
+    setApplication((current) => ({
+      ...current,
+      pets: current.pets.map((pet) => pet.id === id ? { ...pet, ...updates, photo: '' } : pet),
+      applications: current.applications.map((item) => item.petId === id ? { ...item, petName: updates.name || item.petName } : item),
+    }))
   }
 
-  return (
-    <ApplicationContext.Provider value={{ application, updateSection, submitApplication, resetApplication }}>
-      {children}
-    </ApplicationContext.Provider>
-  )
+  const removePet = (id) => {
+    setApplication((current) => ({ ...current, pets: current.pets.filter((pet) => pet.id !== id) }))
+  }
+
+  const updateProfile = (profile) => {
+    setApplication((current) => ({
+      ...current,
+      owner: { ...current.owner, ...profile },
+      account: { ...current.account, name: profile.name, email: profile.email },
+    }))
+  }
+
+  const submitClaim = (claim) => {
+    const claimRecord = {
+      ...claim,
+      id: makeId('claim'),
+      reference: `CLM-${Date.now().toString(36).slice(-6).toUpperCase()}`,
+      submittedAt: new Date().toISOString(),
+      status: 'Received',
+    }
+    setApplication((current) => ({ ...current, claims: [claimRecord, ...current.claims] }))
+    return claimRecord.reference
+  }
+
+  const value = {
+    application,
+    updateSection,
+    submitApplication,
+    resetApplication,
+    addPet,
+    updatePet,
+    removePet,
+    updateProfile,
+    submitClaim,
+  }
+
+  return <ApplicationContext.Provider value={value}>{children}</ApplicationContext.Provider>
 }

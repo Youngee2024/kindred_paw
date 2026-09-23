@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import Brand from './Brand'
+import useApplication from '../context/useApplication'
 
 const links = [
   ['Home', '/'],
@@ -11,6 +12,8 @@ const links = [
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
+  const { application, resetApplication } = useApplication()
+  const hasAccount = Boolean(application.account.email || application.applications.length || application.pets.length)
   const linkClass = 'rounded-lg px-3 py-2 text-sm font-medium text-stone-700 transition hover:bg-[#f3dec8] hover:text-[#25483a] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#25483a]'
 
   return (
@@ -23,8 +26,8 @@ export default function Navbar() {
           ) : <a key={label} href={href} className={linkClass}>{label}</a>)}
         </div>
         <div className="hidden items-center gap-3 md:flex">
-          <Link to="/login" className="px-4 py-2 text-sm font-semibold text-[#25483a]">Log in</Link>
-          <Link to="/signup" className="rounded-xl bg-[#25483a] px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#1d392e]">Get started</Link>
+          <Link to={hasAccount ? '/dashboard' : '/login'} className="px-4 py-2 text-sm font-semibold text-[#25483a]">{hasAccount ? 'Dashboard' : 'Log in'}</Link>
+          <Link to={hasAccount ? '/owner-info' : '/signup'} onClick={hasAccount ? resetApplication : undefined} className="rounded-xl bg-[#25483a] px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#1d392e]">{hasAccount ? 'Add a pet' : 'Get started'}</Link>
         </div>
         <button type="button" onClick={() => setOpen((value) => !value)} className="grid size-11 place-items-center rounded-xl border border-[#25483a]/15 text-[#25483a] md:hidden" aria-label="Toggle navigation" aria-expanded={open}>
           <span className="flex w-5 flex-col gap-1.5" aria-hidden="true">
@@ -39,8 +42,8 @@ export default function Navbar() {
           <div className="flex flex-col gap-1">
             {links.map(([label, href]) => <a key={label} href={href} onClick={() => setOpen(false)} className={linkClass}>{label}</a>)}
             <div className="mt-3 grid grid-cols-2 gap-3">
-              <Link to="/login" className="rounded-xl border border-[#25483a] px-4 py-2.5 text-center font-semibold text-[#25483a]">Log in</Link>
-              <Link to="/signup" className="rounded-xl bg-[#25483a] px-4 py-2.5 text-center font-semibold text-white">Get started</Link>
+              <Link to={hasAccount ? '/dashboard' : '/login'} className="rounded-xl border border-[#25483a] px-4 py-2.5 text-center font-semibold text-[#25483a]">{hasAccount ? 'Dashboard' : 'Log in'}</Link>
+              <Link to={hasAccount ? '/owner-info' : '/signup'} onClick={hasAccount ? resetApplication : undefined} className="rounded-xl bg-[#25483a] px-4 py-2.5 text-center font-semibold text-white">{hasAccount ? 'Add a pet' : 'Get started'}</Link>
             </div>
           </div>
         </div>

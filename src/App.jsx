@@ -4,6 +4,7 @@ import AuthPage from './pages/AuthPage'
 import OwnerInfo from './pages/OwnerInfo'
 import PetInfo from './pages/PetInfo'
 import CompleteInfo from './pages/CompleteInfo'
+import Dashboard from './pages/Dashboard'
 import ApplicationProvider from './context/ApplicationProvider'
 
 export default function App() {
@@ -17,6 +18,7 @@ export default function App() {
           <Route path="/owner-info" element={<OwnerInfo />} />
           <Route path="/pet-info" element={<PetInfo />} />
           <Route path="/complete" element={<CompleteInfo />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </BrowserRouter>

@@ -29,7 +29,7 @@ export default function CompleteInfo() {
 
   const restart = () => {
     resetApplication()
-    navigate('/')
+    navigate('/owner-info')
   }
 
   if (!ownerComplete || !petComplete) {
@@ -93,7 +93,7 @@ export default function CompleteInfo() {
           <p className="mt-1 text-xl font-bold tracking-wider text-[#25483a]">{reference}</p>
         </div>
         <div className="mt-8 flex flex-wrap justify-center gap-3">
-          <Link to="/" className="rounded-xl border border-[#25483a]/20 px-7 py-3.5 font-semibold text-[#25483a]">Return home</Link>
+          <Link to="/dashboard" className="rounded-xl border border-[#25483a]/20 px-7 py-3.5 font-semibold text-[#25483a]">View dashboard</Link>
           <button type="button" onClick={restart} className="rounded-xl bg-[#25483a] px-7 py-3.5 font-semibold text-white">Start another application</button>
         </div>
       </div>

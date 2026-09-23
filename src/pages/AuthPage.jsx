@@ -33,7 +33,8 @@ export default function AuthPage({ mode }) {
       navigate('/owner-info')
       return
     }
-    if (application.pet.name) navigate('/complete')
+    if (application.applications.length || application.pets.length) navigate('/dashboard')
+    else if (application.pet.name) navigate('/complete')
     else if (application.owner.name) navigate('/pet-info')
     else navigate('/owner-info')
   }

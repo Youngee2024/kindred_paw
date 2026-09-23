@@ -1,20 +1,49 @@
-# KindredPaw - Pet Insurance Experience
+# KindredPaw
 
 [![Live Demo](https://img.shields.io/badge/demo-online-brightgreen.svg)](https://maya-insurance.vercel.app)
-[![React](https://img.shields.io/badge/React-18-blue.svg)](https://react.dev)
+[![React](https://img.shields.io/badge/React-19-149eca.svg)](https://react.dev)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-v4-38bdf8.svg)](https://tailwindcss.com)
 
-A responsive, multi-step pet insurance onboarding application modernizing a legacy static codebase into a modular React architecture.
+A responsive pet-insurance experience with multi-step onboarding and a persistent customer dashboard.
 
-## 🔗 Live Demo
-**Production Link:** [https://maya-insurance.vercel.app](https://maya-insurance.vercel.app)
+## Live demo
 
-## 🚀 Tech Stack
-* **Core Framework:** React 18, Vite
-* **Styling & Layout:** Tailwind CSS v4
-* **Client-Side Routing:** React Router v6
+[https://maya-insurance.vercel.app](https://maya-insurance.vercel.app)
 
-## ✨ Engineering Key Takeaways
-* **Modular Component Design:** Refactored static HTML views into reusable React components (`Navbar`, `Footer`, `ProgressBar`, `StepForm`).
-* **State-Driven Flow:** Managed user input across multi-step onboarding routes (`/owner-info`, `/pet-info`, `/complete`) using React controlled inputs.
-* **Production-Ready Deployment:** Configured Vite build optimizations and connected automated deployment via Vercel CLI.
+## Features
+
+- Responsive landing page and authentication screens.
+- Multi-step owner and pet insurance application.
+- Review, confirmation and application reference generation.
+- Customer dashboard at `/dashboard`.
+- Submitted application and policy-status tracking.
+- Multiple pet profiles with add, edit and remove actions.
+- Claims submission and status history.
+- Editable customer contact information.
+- Browser persistence for frontend demonstration data.
+
+## Technology
+
+- React 19
+- Vite 8
+- Tailwind CSS 4
+- React Router 7
+- Local storage for prototype persistence
+
+## Development
+
+```bash
+npm install
+npm run dev
+```
+
+Production validation:
+
+```bash
+npm run lint
+npm run build
+```
+
+## Production note
+
+Authentication, policy decisions, claims processing and customer data currently run as a frontend demonstration. A production release should connect these workflows to authenticated backend services and a secure database.

@@ -11,7 +11,7 @@ const links = [
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
-  const linkClass = 'rounded-lg px-3 py-2 text-sm font-medium text-stone-700 transition hover:bg-[#f8ebdd] hover:text-[#25483a]'
+  const linkClass = 'rounded-lg px-3 py-2 text-sm font-medium text-stone-700 transition hover:bg-[#f3dec8] hover:text-[#25483a] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#25483a]'
 
   return (
     <header className="sticky top-0 z-50 border-b border-[#25483a]/10 bg-[#faf6ee]/95 backdrop-blur">
@@ -19,7 +19,7 @@ export default function Navbar() {
         <Brand />
         <div className="hidden items-center gap-1 md:flex">
           {links.map(([label, href]) => href === '/' ? (
-            <NavLink key={label} to={href} className={({ isActive }) => `${linkClass} ${isActive ? 'text-[#25483a]' : ''}`}>{label}</NavLink>
+            <NavLink key={label} to={href} className={({ isActive }) => `${linkClass} ${isActive ? 'bg-[#f3dec8] text-[#25483a]' : ''}`}>{label}</NavLink>
           ) : <a key={label} href={href} className={linkClass}>{label}</a>)}
         </div>
         <div className="hidden items-center gap-3 md:flex">

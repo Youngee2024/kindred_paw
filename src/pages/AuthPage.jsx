@@ -3,13 +3,16 @@ import { Link, useNavigate } from 'react-router-dom'
 import Brand from '../components/Brand'
 import FormField from '../components/FormField'
 import authImage from '../assets/kindredpaw-vet.jpg'
-import twitter from '../../Icons/mdi_twitter.png'
-import facebook from '../../Icons/ri_facebook-fill.png'
-import linkedin from '../../Icons/ri_linkedin-fill.png'
-import google from '../../Icons/flat-color-icons_google.png'
 import useApplication from '../context/useApplication'
 
-const providers = [['Twitter', twitter], ['Facebook', facebook], ['LinkedIn', linkedin], ['Google', google]]
+const providers = ['X', 'Facebook', 'LinkedIn', 'Google']
+
+function ProviderIcon({ name }) {
+  if (name === 'X') return <svg viewBox="0 0 24 24" className="size-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><path d="m5 4 14 16M19 4 5 20" /></svg>
+  if (name === 'Facebook') return <span className="text-lg font-black leading-none" aria-hidden="true">f</span>
+  if (name === 'LinkedIn') return <span className="text-xs font-black leading-none" aria-hidden="true">in</span>
+  return <span className="text-sm font-black leading-none" aria-hidden="true">G</span>
+}
 
 export default function AuthPage({ mode }) {
   const signup = mode === 'signup'
@@ -63,9 +66,9 @@ export default function AuthPage({ mode }) {
           </form>
           <p className="my-7 text-center text-sm text-stone-600">or continue with</p>
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-            {providers.map(([name, icon]) => <button key={name} type="button" onClick={() => unavailable(`${name} sign-in`)} aria-label={`Continue with ${name}`} className="flex items-center justify-center gap-2 rounded-xl border border-[#25483a]/10 bg-white px-3 py-3 text-sm font-semibold text-stone-700 shadow-sm transition hover:border-[#25483a]/30"><img src={icon} alt="" className="size-5 object-contain" /><span className="hidden sm:inline">{name}</span></button>)}
+            {providers.map((name) => <button key={name} type="button" onClick={() => unavailable(`${name} sign-in`)} aria-label={`Continue with ${name}`} className="flex items-center justify-center gap-2 rounded-xl border border-[#25483a]/10 bg-white px-3 py-3 text-sm font-semibold text-[#25483a] shadow-sm transition hover:border-[#25483a]/30 hover:bg-[#f8ebdd]"><span className="grid size-6 place-items-center rounded-full bg-[#f3dec8]"><ProviderIcon name={name} /></span><span className="hidden sm:inline">{name}</span></button>)}
           </div>
-          {notice && <p role="status" className="mt-4 rounded-xl bg-amber-50 px-4 py-3 text-sm text-amber-900">{notice}</p>}
+          {notice && <p role="status" className="mt-4 rounded-xl border border-[#9a4f2b]/20 bg-[#f8ebdd] px-4 py-3 text-sm text-[#6f381f]">{notice}</p>}
           <p className="mt-8 text-center text-stone-600">
             {signup ? 'Already have an account?' : 'New to KindredPaw?'}{' '}
             <Link to={signup ? '/login' : '/signup'} className="font-semibold text-[#25483a] hover:underline">{signup ? 'Log in' : 'Sign up'}</Link>

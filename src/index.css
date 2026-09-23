@@ -1,1 +1,11 @@
 @import "tailwindcss";
+
+@theme {
+  --color-kindred-forest: #25483a;
+  --color-kindred-forest-dark: #1d392e;
+  --color-kindred-clay: #9a4f2b;
+  --color-kindred-cream: #faf6ee;
+  --color-kindred-sand: #f1e6d7;
+  --color-kindred-caramel: #f3dec8;
+  --color-kindred-sage: #dce8dc;
+}

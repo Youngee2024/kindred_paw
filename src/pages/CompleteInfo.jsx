@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import OnboardingShell from '../components/OnboardingShell'
-import completed from '../../images/Completed.png'
 import useApplication from '../context/useApplication'
 
 function SummaryCard({ title, editTo, children }) {
@@ -36,7 +35,7 @@ export default function CompleteInfo() {
   if (!ownerComplete || !petComplete) {
     return (
       <OnboardingShell step={3} title="Finish your application" description="A few required details are still missing.">
-        <div className="rounded-2xl border border-amber-200 bg-amber-50 p-6 text-amber-950">
+        <div className="rounded-2xl border border-[#9a4f2b]/25 bg-[#f8ebdd] p-6 text-[#6f381f]">
           <h2 className="text-xl font-bold">Your application is not ready yet</h2>
           <p className="mt-2">Complete the sections below before submitting.</p>
           <div className="mt-6 flex flex-wrap gap-3">
@@ -84,7 +83,9 @@ export default function CompleteInfo() {
   return (
     <OnboardingShell step={3} title="You’re all set" description="Your application has been submitted successfully.">
       <div className="flex flex-col items-center py-6 text-center">
-        <div className="grid size-40 place-items-center rounded-full bg-green-50"><img src={completed} alt="Completed" className="w-28" /></div>
+        <div className="grid size-40 place-items-center rounded-full bg-[#dce8dc] text-[#25483a]" aria-label="Completed">
+          <svg viewBox="0 0 24 24" className="size-24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m5 12 4 4L19 6" /></svg>
+        </div>
         <h2 className="mt-8 text-2xl font-bold text-[#25483a]">Thanks for telling us about your pet.</h2>
         <p className="mt-3 max-w-lg leading-7 text-stone-600">We saved your application and will use it to help find thoughtful cover for {pet.name}.</p>
         <div className="mt-6 rounded-xl bg-[#faf6ee] px-6 py-4">

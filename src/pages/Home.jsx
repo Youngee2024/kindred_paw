@@ -41,7 +41,7 @@ export default function Home() {
           <div className="mx-auto grid min-h-[700px] max-w-7xl items-center gap-10 px-5 py-16 lg:grid-cols-[1.05fr_.95fr] lg:px-8 lg:py-20">
             <div className="max-w-2xl">
               <div className="inline-flex items-center gap-2 rounded-full border border-[#25483a]/10 bg-white/70 px-4 py-2 text-sm font-semibold text-[#25483a] shadow-sm">
-                <span className="size-2 rounded-full bg-emerald-600" />
+                <span className="size-2 rounded-full bg-[#9a4f2b]" />
                 Thoughtful cover for cats and dogs
               </div>
               <h1 className="mt-7 text-5xl font-bold leading-[1.03] tracking-[-0.04em] text-[#25483a] sm:text-6xl lg:text-7xl">More care. Less worry. More life together.</h1>
@@ -51,15 +51,15 @@ export default function Home() {
                 <a href="#how-it-works" className="rounded-xl border border-[#25483a]/20 bg-white/70 px-7 py-3.5 text-center font-semibold text-[#25483a] transition hover:bg-white">See how it works</a>
               </div>
               <div className="mt-8 flex flex-wrap gap-x-6 gap-y-3 text-sm font-medium text-stone-600">
-                <span className="flex items-center gap-2"><span className="text-emerald-700">✓</span> Takes only a few minutes</span>
-                <span className="flex items-center gap-2"><span className="text-emerald-700">✓</span> Save and continue later</span>
+                <span className="flex items-center gap-2"><span className="text-[#9a4f2b]">✓</span> Takes only a few minutes</span>
+                <span className="flex items-center gap-2"><span className="text-[#9a4f2b]">✓</span> Save and continue later</span>
               </div>
             </div>
 
             <div className="relative mx-auto min-h-[500px] w-full max-w-xl lg:min-h-[590px]">
               <div className="absolute bottom-16 left-4 z-20 rounded-2xl border border-white/60 bg-white/90 p-4 shadow-xl backdrop-blur sm:left-0">
                 <div className="flex items-center gap-3">
-                  <span className="grid size-10 place-items-center rounded-full bg-emerald-100 text-emerald-800">✓</span>
+                  <span className="grid size-10 place-items-center rounded-full bg-[#dce8dc] text-[#25483a]">✓</span>
                   <div><p className="font-bold text-[#25483a]">Easy to start</p><p className="text-xs text-stone-500">One clear application</p></div>
                 </div>
               </div>
@@ -139,7 +139,7 @@ export default function Home() {
                 ['A complete view of your pet', 'Keep health and application details together in one simple journey.'],
               ].map(([title, text]) => (
                 <li key={title} className="flex gap-4">
-                  <span className="mt-1 grid size-7 shrink-0 place-items-center rounded-full bg-emerald-100 text-sm font-bold text-emerald-800">✓</span>
+                  <span className="mt-1 grid size-7 shrink-0 place-items-center rounded-full bg-[#dce8dc] text-sm font-bold text-[#25483a]">✓</span>
                   <div><p className="font-bold text-[#25483a]">{title}</p><p className="mt-1 leading-6 text-stone-600">{text}</p></div>
                 </li>
               ))}

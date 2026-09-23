@@ -23,6 +23,9 @@ A responsive pet-insurance experience with multi-step onboarding, personalized q
 - Server-side transaction initialization, amount verification and signed webhook handling.
 - Printable receipts and customer payment history.
 - Customer dashboard at `/dashboard`.
+- Administration portal at `/admin` with application and claims decision queues.
+- Customer, pet, plan and payment-record management.
+- CSV exports for applications, claims, customers and payments.
 - Submitted application and policy-status tracking.
 - Multiple pet profiles with add, edit and remove actions.
 - Claims submission and status history.

@@ -1,10 +1,12 @@
 import { useCallback, useEffect, useState } from 'react'
 import { ApplicationContext } from './applicationContext'
+import { coveragePlans } from '../utils/quoteCalculator'
 
 const storageKey = 'kindredpaw-application'
 const emptyOwner = { name: '', email: '', phone: '', address: '', photo: '' }
 const emptyPet = { name: '', type: '', breed: '', birthday: '', weight: '', medication: '', medicationDetails: '', surgery: '', photo: '' }
 const emptyQuote = { planId: '', planName: '', billing: 'monthly', monthlyPremium: 0, annualPremium: 0, annualLimit: '', reimbursement: '', deductible: '' }
+const defaultPlans = coveragePlans.map((plan) => ({ ...plan, status: 'Active' }))
 
 const emptyApplication = {
   account: { name: '', email: '' },
@@ -17,6 +19,8 @@ const emptyApplication = {
   applications: [],
   claims: [],
   payments: [],
+  plans: defaultPlans,
+  customerStatus: 'Active',
   lastPaymentReference: '',
 }
 
@@ -38,6 +42,8 @@ function loadApplication() {
       applications: saved.applications || [],
       claims: saved.claims || [],
       payments: saved.payments || [],
+      plans: saved.plans?.length ? saved.plans : defaultPlans,
+      customerStatus: saved.customerStatus || 'Active',
     }
 
     // Migrate applications submitted before the dashboard existed.
@@ -190,6 +196,48 @@ export default function ApplicationProvider({ children }) {
     })
   }, [])
 
+  const decideApplication = (id, decision) => {
+    const approved = decision === 'approve'
+    setApplication((current) => ({
+      ...current,
+      applications: current.applications.map((item) => item.id === id ? {
+        ...item,
+        status: approved ? 'Approved' : 'Rejected',
+        policyStatus: approved ? 'Active' : 'Declined',
+        decisionAt: new Date().toISOString(),
+      } : item),
+    }))
+  }
+
+  const decideClaim = (id, decision) => {
+    setApplication((current) => ({
+      ...current,
+      claims: current.claims.map((item) => item.id === id ? {
+        ...item,
+        status: decision === 'approve' ? 'Approved' : 'Declined',
+        decisionAt: new Date().toISOString(),
+      } : item),
+    }))
+  }
+
+  const updateCustomerStatus = (status) => {
+    setApplication((current) => ({ ...current, customerStatus: status }))
+  }
+
+  const updatePlan = (id, updates) => {
+    setApplication((current) => ({
+      ...current,
+      plans: current.plans.map((plan) => plan.id === id ? { ...plan, ...updates } : plan),
+    }))
+  }
+
+  const updatePaymentRecord = (reference, updates) => {
+    setApplication((current) => ({
+      ...current,
+      payments: current.payments.map((payment) => payment.reference === reference ? { ...payment, ...updates } : payment),
+    }))
+  }
+
   const value = {
     application,
     updateSection,
@@ -201,6 +249,11 @@ export default function ApplicationProvider({ children }) {
     updateProfile,
     submitClaim,
     recordPayment,
+    decideApplication,
+    decideClaim,
+    updateCustomerStatus,
+    updatePlan,
+    updatePaymentRecord,
   }
 
   return <ApplicationContext.Provider value={value}>{children}</ApplicationContext.Provider>

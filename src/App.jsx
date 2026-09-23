@@ -9,6 +9,7 @@ import Quote from './pages/Quote'
 import Payment from './pages/Payment'
 import PaymentCallback from './pages/PaymentCallback'
 import Receipt from './pages/Receipt'
+import AdminPortal from './pages/AdminPortal'
 import ApplicationProvider from './context/ApplicationProvider'
 
 export default function App() {
@@ -27,6 +28,7 @@ export default function App() {
           <Route path="/receipt/:reference" element={<Receipt />} />
           <Route path="/complete" element={<CompleteInfo />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/admin" element={<AdminPortal />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </BrowserRouter>

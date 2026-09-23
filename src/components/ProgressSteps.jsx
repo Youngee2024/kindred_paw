@@ -10,10 +10,10 @@ export default function ProgressSteps({ current }) {
           return (
             <div key={label} className={`flex items-center ${index < labels.length - 1 ? 'flex-1' : ''}`}>
               <div className="relative flex flex-col items-center">
-                <span className={`grid size-10 place-items-center rounded-full text-sm font-bold ${done ? 'bg-red-950 text-white' : 'bg-stone-200 text-stone-500'}`}>{done && step < current ? '✓' : step}</span>
+                <span className={`grid size-10 place-items-center rounded-full text-sm font-bold ${done ? 'bg-[#25483a] text-white' : 'bg-stone-200 text-stone-500'}`}>{done && step < current ? '✓' : step}</span>
                 <span className="absolute top-12 w-28 text-center text-xs font-medium text-stone-600 sm:w-40 sm:text-sm">{label}</span>
               </div>
-              {index < labels.length - 1 && <div className={`h-2 flex-1 ${step < current ? 'bg-red-950' : 'bg-stone-200'}`} />}
+              {index < labels.length - 1 && <div className={`h-2 flex-1 ${step < current ? 'bg-[#25483a]' : 'bg-stone-200'}`} />}
             </div>
           )
         })}

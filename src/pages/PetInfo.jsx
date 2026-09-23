@@ -33,8 +33,8 @@ export default function PetInfo() {
           {form.medication === 'yes' && <div className="sm:col-span-2"><FormField label="Medication details" id="medication-details" as="textarea" required value={form.medicationDetails} onChange={update('medicationDetails')} placeholder="Tell us the medicine and dosage" /></div>}
           <div className="sm:col-span-2"><FormField label="Any surgery in the past?" id="pet-surgery" as="textarea" value={form.surgery} onChange={update('surgery')} placeholder="Add details, or leave blank if none" /></div>
           <div className="sm:col-span-2 flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
-            <button type="button" onClick={() => navigate('/owner-info')} className="rounded-xl border border-red-950/20 px-7 py-3.5 font-semibold text-red-950">Back</button>
-            <button className="rounded-xl bg-red-950 px-7 py-3.5 font-semibold text-white">Save and continue</button>
+            <button type="button" onClick={() => navigate('/owner-info')} className="rounded-xl border border-[#25483a]/20 px-7 py-3.5 font-semibold text-[#25483a]">Back</button>
+            <button className="rounded-xl bg-[#25483a] px-7 py-3.5 font-semibold text-white">Save and continue</button>
           </div>
         </div>
       </form>

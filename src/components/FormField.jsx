@@ -1,4 +1,4 @@
-const controlClass = 'mt-2 w-full rounded-xl border border-red-950/20 bg-white px-4 py-3 text-stone-900 outline-none transition placeholder:text-stone-400 focus:border-red-900 focus:ring-4 focus:ring-red-950/5'
+const controlClass = 'mt-2 w-full rounded-xl border border-[#25483a]/20 bg-white px-4 py-3 text-stone-900 outline-none transition placeholder:text-stone-400 focus:border-[#25483a] focus:ring-4 focus:ring-[#25483a]/5'
 
 export default function FormField({ label, id, as = 'input', options, ...props }) {
   return (

@@ -24,7 +24,7 @@ export default function OwnerInfo() {
           <FormField label="Email address" id="owner-email" type="email" required value={form.email} onChange={update('email')} placeholder="you@example.com" />
           <FormField label="Phone number" id="owner-phone" type="tel" required value={form.phone} onChange={update('phone')} placeholder="070 3443 3744" />
           <div className="sm:col-span-2"><FormField label="Home address" id="owner-address" as="textarea" required value={form.address} onChange={update('address')} placeholder="Enter your address" /></div>
-          <div className="sm:col-span-2 flex justify-end"><button className="w-full rounded-xl bg-red-950 px-7 py-3.5 font-semibold text-white sm:w-auto">Save and continue</button></div>
+          <div className="sm:col-span-2 flex justify-end"><button className="w-full rounded-xl bg-[#25483a] px-7 py-3.5 font-semibold text-white sm:w-auto">Save and continue</button></div>
         </div>
       </form>
     </OnboardingShell>

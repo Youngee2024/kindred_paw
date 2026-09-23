@@ -6,10 +6,10 @@ import useApplication from '../context/useApplication'
 
 function SummaryCard({ title, editTo, children }) {
   return (
-    <section className="rounded-2xl border border-red-950/10 bg-[#fffaf2] p-6">
+    <section className="rounded-2xl border border-[#25483a]/10 bg-[#faf6ee] p-6">
       <div className="mb-5 flex items-center justify-between gap-4">
-        <h2 className="text-xl font-bold text-red-950">{title}</h2>
-        <Link to={editTo} className="text-sm font-semibold text-red-900 underline">Edit</Link>
+        <h2 className="text-xl font-bold text-[#25483a]">{title}</h2>
+        <Link to={editTo} className="text-sm font-semibold text-[#9a4f2b] underline">Edit</Link>
       </div>
       <dl className="grid gap-x-8 gap-y-4 text-sm sm:grid-cols-2">{children}</dl>
     </section>
@@ -40,8 +40,8 @@ export default function CompleteInfo() {
           <h2 className="text-xl font-bold">Your application is not ready yet</h2>
           <p className="mt-2">Complete the sections below before submitting.</p>
           <div className="mt-6 flex flex-wrap gap-3">
-            {!ownerComplete && <Link to="/owner-info" className="rounded-xl bg-red-950 px-5 py-3 font-semibold text-white">Complete owner details</Link>}
-            {!petComplete && <Link to="/pet-info" className="rounded-xl bg-red-950 px-5 py-3 font-semibold text-white">Complete pet details</Link>}
+            {!ownerComplete && <Link to="/owner-info" className="rounded-xl bg-[#25483a] px-5 py-3 font-semibold text-white">Complete owner details</Link>}
+            {!petComplete && <Link to="/pet-info" className="rounded-xl bg-[#25483a] px-5 py-3 font-semibold text-white">Complete pet details</Link>}
           </div>
         </div>
       </OnboardingShell>
@@ -68,13 +68,13 @@ export default function CompleteInfo() {
             {pet.medication === 'yes' && <Detail label="Medication details" value={pet.medicationDetails} />}
             <Detail label="Past surgery" value={pet.surgery || 'None reported'} />
           </SummaryCard>
-          <label className="flex cursor-pointer items-start gap-3 rounded-xl border border-red-950/10 p-4 text-sm text-stone-700">
-            <input type="checkbox" checked={confirmed} onChange={(event) => setConfirmed(event.target.checked)} className="mt-0.5 size-5 accent-red-950" />
+          <label className="flex cursor-pointer items-start gap-3 rounded-xl border border-[#25483a]/10 p-4 text-sm text-stone-700">
+            <input type="checkbox" checked={confirmed} onChange={(event) => setConfirmed(event.target.checked)} className="mt-0.5 size-5 accent-[#25483a]" />
             <span>I confirm that the information above is complete and accurate.</span>
           </label>
           <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-between">
-            <button type="button" onClick={() => navigate('/pet-info')} className="rounded-xl border border-red-950/20 px-7 py-3.5 font-semibold text-red-950">Back</button>
-            <button type="button" onClick={submitApplication} disabled={!confirmed} className="rounded-xl bg-red-950 px-7 py-3.5 font-semibold text-white transition hover:bg-red-900 disabled:cursor-not-allowed disabled:opacity-40">Submit application</button>
+            <button type="button" onClick={() => navigate('/pet-info')} className="rounded-xl border border-[#25483a]/20 px-7 py-3.5 font-semibold text-[#25483a]">Back</button>
+            <button type="button" onClick={submitApplication} disabled={!confirmed} className="rounded-xl bg-[#25483a] px-7 py-3.5 font-semibold text-white transition hover:bg-[#1d392e] disabled:cursor-not-allowed disabled:opacity-40">Submit application</button>
           </div>
         </div>
       </OnboardingShell>
@@ -85,15 +85,15 @@ export default function CompleteInfo() {
     <OnboardingShell step={3} title="You’re all set" description="Your application has been submitted successfully.">
       <div className="flex flex-col items-center py-6 text-center">
         <div className="grid size-40 place-items-center rounded-full bg-green-50"><img src={completed} alt="Completed" className="w-28" /></div>
-        <h2 className="mt-8 text-2xl font-bold text-red-950">Thanks for telling us about your pet.</h2>
+        <h2 className="mt-8 text-2xl font-bold text-[#25483a]">Thanks for telling us about your pet.</h2>
         <p className="mt-3 max-w-lg leading-7 text-stone-600">We saved your application and will use it to help find thoughtful cover for {pet.name}.</p>
-        <div className="mt-6 rounded-xl bg-[#fffaf2] px-6 py-4">
+        <div className="mt-6 rounded-xl bg-[#faf6ee] px-6 py-4">
           <p className="text-xs font-bold uppercase tracking-[0.16em] text-stone-500">Application reference</p>
-          <p className="mt-1 text-xl font-bold tracking-wider text-red-950">{reference}</p>
+          <p className="mt-1 text-xl font-bold tracking-wider text-[#25483a]">{reference}</p>
         </div>
         <div className="mt-8 flex flex-wrap justify-center gap-3">
-          <Link to="/" className="rounded-xl border border-red-950/20 px-7 py-3.5 font-semibold text-red-950">Return home</Link>
-          <button type="button" onClick={restart} className="rounded-xl bg-red-950 px-7 py-3.5 font-semibold text-white">Start another application</button>
+          <Link to="/" className="rounded-xl border border-[#25483a]/20 px-7 py-3.5 font-semibold text-[#25483a]">Return home</Link>
+          <button type="button" onClick={restart} className="rounded-xl bg-[#25483a] px-7 py-3.5 font-semibold text-white">Start another application</button>
         </div>
       </div>
     </OnboardingShell>

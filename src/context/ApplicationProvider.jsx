@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { ApplicationContext } from './applicationContext'
 
-const storageKey = 'maya-insurance-application'
+const storageKey = 'kindredpaw-application'
 
 const emptyApplication = {
   account: { name: '', email: '' },
@@ -51,7 +51,7 @@ export default function ApplicationProvider({ children }) {
   }
 
   const submitApplication = () => {
-    const reference = `MI-${Date.now().toString(36).slice(-6).toUpperCase()}`
+    const reference = `KP-${Date.now().toString(36).slice(-6).toUpperCase()}`
     setApplication((current) => ({ ...current, submitted: true, reference }))
   }
 

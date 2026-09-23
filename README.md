@@ -1,4 +1,4 @@
-# Maya Insurance - React Modernization
+# KindredPaw - Pet Insurance Experience
 
 [![Live Demo](https://img.shields.io/badge/demo-online-brightgreen.svg)](https://maya-insurance.vercel.app)
 [![React](https://img.shields.io/badge/React-18-blue.svg)](https://react.dev)

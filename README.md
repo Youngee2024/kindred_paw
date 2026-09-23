@@ -64,7 +64,7 @@ APP_URL=http://localhost:3000
 
 `PAYSTACK_SECRET_KEY` is server-only. Never prefix it with `VITE_` or expose it in browser code. In Vercel, add both environment variables to the project and set the Paystack webhook URL to `https://your-domain.example/api/payments/webhook`.
 
-The optional `VITE_ENABLE_DEMO_PAYMENTS=true` flag reveals a local simulation button. Leave it unset in production.
+Checkout uses presentation mode by default: it records a successful test payment without making a real charge. Set `VITE_ENABLE_LIVE_PAYMENTS=true` only after the Paystack environment variables and account are configured.
 
 Production validation:
 

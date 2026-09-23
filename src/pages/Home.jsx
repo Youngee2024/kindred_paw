@@ -1,24 +1,33 @@
 import { Link } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
-import heroImage from '../../images/young woman sitting on ground and petting dog(1).jpg'
-import accidentImage from '../../images/cat lies on document(1).jpg'
-import surgeryImage from '../../images/thermometer showing 37 celsius.jpg'
-import medicationImage from '../../images/pill(1).jpg'
-import therapyImage from '../../images/cat on books plant(2).jpg'
-import avatar from '../../images/person female.png'
+import heroImage from '../../images/young_woman_sitting_on_ground_and_petting_dog_1_-removebg-preview.png'
+import vetImage from '../../images/female veterinarian with dog(2).jpg'
 
-const services = [
-  ['Accident and illness', 'Cover for broken bones, cuts, foreign-object ingestion, allergies, infections and more.', accidentImage],
-  ['Surgery and hospitalization', 'Support for emergency and planned procedures, including extended veterinary stays.', surgeryImage],
-  ['Medication and tests', 'Prescription medicine and diagnostics including X-rays, blood tests and ultrasounds.', medicationImage],
-  ['Hereditary conditions and therapies', 'Care for genetic conditions and therapies such as physiotherapy and acupuncture.', therapyImage],
+const trustPoints = [
+  ['Clear cover', 'Know what is included before you choose.'],
+  ['Flexible protection', 'Select care that fits your pet and budget.'],
+  ['Human support', 'Get help from people who understand pet care.'],
 ]
 
-const testimonials = [
-  'Maya made a stressful vet visit feel manageable. The process was clear from the very first step.',
-  'I found the right cover for my dog in minutes, and the team answered every question with care.',
-  'Simple, thoughtful and transparent. It feels good knowing my pet is protected when it matters.',
+const steps = [
+  ['01', 'Tell us about your pet', 'Share a few details about their age, breed and health.'],
+  ['02', 'Choose your protection', 'Review straightforward options and select the right level of cover.'],
+  ['03', 'Care with confidence', 'Keep their policy details close whenever veterinary care is needed.'],
+]
+
+const services = [
+  ['✚', 'Accidents and illness', 'Support for unexpected injuries, infections, allergies and ongoing conditions.'],
+  ['⌁', 'Surgery and hospital stays', 'Help with eligible procedures, emergency treatment and overnight care.'],
+  ['◇', 'Medication and tests', 'Cover for eligible prescriptions, blood tests, X-rays and ultrasound scans.'],
+  ['♡', 'Specialist therapies', 'Support for eligible rehabilitation, physiotherapy and hereditary conditions.'],
+]
+
+const faqs = [
+  ['What pets can I cover?', 'Maya is designed for cats and dogs. Available cover may depend on your pet’s age, breed and medical history.'],
+  ['Can I use my regular veterinarian?', 'The experience is designed to let you continue using your trusted licensed veterinarian, subject to the terms of your selected plan.'],
+  ['Are existing conditions covered?', 'Pre-existing conditions are normally reviewed separately. Your final policy documents will clearly explain exclusions and waiting periods.'],
+  ['How long does an application take?', 'The online application only takes a few minutes. You can save your progress, review every detail and submit when you are ready.'],
 ]
 
 export default function Home() {
@@ -26,61 +35,149 @@ export default function Home() {
     <div className="min-h-screen bg-[#fffaf2] text-stone-900">
       <Navbar />
       <main>
-        <section className="relative overflow-hidden border-b border-red-950/10">
-          <div className="absolute inset-0 bg-gradient-to-br from-[#fffaf2] via-[#f8eee6] to-[#e8cecc]" />
-          <div className="relative mx-auto grid min-h-[680px] max-w-7xl items-center gap-10 px-5 py-16 lg:grid-cols-2 lg:px-8">
+        <section className="relative isolate overflow-hidden border-b border-red-950/10">
+          <div className="absolute inset-0 -z-20 bg-[radial-gradient(circle_at_80%_20%,#efd8d4_0%,transparent_38%),linear-gradient(135deg,#fffaf2_0%,#f7ede5_100%)]" />
+          <div className="absolute -right-24 top-16 -z-10 size-[520px] rounded-full border-[80px] border-white/40" />
+          <div className="mx-auto grid min-h-[700px] max-w-7xl items-center gap-10 px-5 py-16 lg:grid-cols-[1.05fr_.95fr] lg:px-8 lg:py-20">
             <div className="max-w-2xl">
-              <p className="mb-5 text-sm font-bold uppercase tracking-[0.25em] text-red-800">Care without compromise</p>
-              <h1 className="text-5xl font-bold leading-[1.05] tracking-tight text-red-950 sm:text-6xl lg:text-7xl">Their best life deserves your best protection.</h1>
-              <p className="mt-6 max-w-xl text-lg leading-8 text-stone-700">Straightforward pet insurance that helps your furry family get the care they deserve—from everyday surprises to major treatment.</p>
-              <div className="mt-9 flex flex-wrap gap-4">
-                <Link to="/signup" className="rounded-xl bg-red-950 px-6 py-3.5 font-semibold text-white shadow-lg shadow-red-950/15 transition hover:bg-red-900">Get started</Link>
-                <a href="#services" className="rounded-xl border border-red-950/20 bg-white/60 px-6 py-3.5 font-semibold text-red-950 transition hover:bg-white">Explore cover</a>
+              <div className="inline-flex items-center gap-2 rounded-full border border-red-950/10 bg-white/70 px-4 py-2 text-sm font-semibold text-red-950 shadow-sm">
+                <span className="size-2 rounded-full bg-emerald-600" />
+                Thoughtful cover for cats and dogs
+              </div>
+              <h1 className="mt-7 text-5xl font-bold leading-[1.03] tracking-[-0.04em] text-red-950 sm:text-6xl lg:text-7xl">More care. Less worry. More life together.</h1>
+              <p className="mt-6 max-w-xl text-lg leading-8 text-stone-700">Simple pet insurance for the everyday mishaps and bigger moments—so decisions about their care can stay focused on what matters.</p>
+              <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+                <Link to="/signup" className="rounded-xl bg-red-950 px-7 py-3.5 text-center font-semibold text-white shadow-lg shadow-red-950/15 transition hover:-translate-y-0.5 hover:bg-red-900">Get my pet covered</Link>
+                <a href="#how-it-works" className="rounded-xl border border-red-950/20 bg-white/70 px-7 py-3.5 text-center font-semibold text-red-950 transition hover:bg-white">See how it works</a>
+              </div>
+              <div className="mt-8 flex flex-wrap gap-x-6 gap-y-3 text-sm font-medium text-stone-600">
+                <span className="flex items-center gap-2"><span className="text-emerald-700">✓</span> Takes only a few minutes</span>
+                <span className="flex items-center gap-2"><span className="text-emerald-700">✓</span> Save and continue later</span>
               </div>
             </div>
-            <div className="relative mx-auto w-full max-w-lg lg:max-w-none">
-              <div className="absolute -inset-4 rotate-3 rounded-[3rem] bg-red-950/10" />
-              <img src={heroImage} alt="Pet owner enjoying time with her dog" className="relative h-[460px] w-full rounded-[3rem] object-cover shadow-2xl sm:h-[560px]" />
-              <div className="absolute -bottom-5 -left-3 rounded-2xl bg-white p-4 shadow-xl sm:left-6">
-                <p className="text-2xl font-bold text-red-950">Simple cover</p>
-                <p className="text-sm text-stone-600">For the pets you love most</p>
+
+            <div className="relative mx-auto flex min-h-[500px] w-full max-w-xl items-end justify-center lg:min-h-[590px]">
+              <div className="absolute bottom-4 left-1/2 size-[420px] -translate-x-1/2 rounded-full bg-[#ead2cf] sm:size-[500px]" />
+              <div className="absolute bottom-16 left-4 z-20 rounded-2xl border border-white/60 bg-white/90 p-4 shadow-xl backdrop-blur sm:left-0">
+                <div className="flex items-center gap-3">
+                  <span className="grid size-10 place-items-center rounded-full bg-emerald-100 text-emerald-800">✓</span>
+                  <div><p className="font-bold text-red-950">Easy to start</p><p className="text-xs text-stone-500">One clear application</p></div>
+                </div>
               </div>
+              <div className="absolute right-2 top-20 z-20 rounded-2xl bg-red-950 px-5 py-4 text-white shadow-xl sm:right-0">
+                <p className="text-xs font-semibold uppercase tracking-wider text-red-200">Made for</p>
+                <p className="mt-1 text-lg font-bold">Cats + dogs</p>
+              </div>
+              <img src={heroImage} alt="Pet owner caring for her dog" className="relative z-10 w-full max-w-[570px] object-contain drop-shadow-2xl" />
             </div>
           </div>
         </section>
 
-        <section id="services" className="mx-auto max-w-7xl px-5 py-24 lg:px-8">
-          <div className="mx-auto mb-12 max-w-2xl text-center">
-            <p className="text-sm font-bold uppercase tracking-[0.2em] text-red-800">What we do</p>
-            <h2 className="mt-3 text-4xl font-bold tracking-tight text-red-950 sm:text-5xl">Protection through every chapter</h2>
+        <section aria-label="Maya benefits" className="border-b border-red-950/10 bg-white">
+          <div className="mx-auto grid max-w-7xl divide-y divide-red-950/10 px-5 sm:grid-cols-3 sm:divide-x sm:divide-y-0 lg:px-8">
+            {trustPoints.map(([title, text]) => (
+              <div key={title} className="py-7 sm:px-6 sm:first:pl-0 sm:last:pr-0">
+                <p className="font-bold text-red-950">{title}</p>
+                <p className="mt-1 text-sm leading-6 text-stone-600">{text}</p>
+              </div>
+            ))}
           </div>
-          <div className="grid gap-6 md:grid-cols-2">
-            {services.map(([title, text, image]) => (
-              <article key={title} className="group overflow-hidden rounded-3xl border border-red-950/10 bg-[#f3e9e7]">
-                <img src={image} alt="" className="h-64 w-full object-cover transition duration-500 group-hover:scale-105" />
-                <div className="p-7">
-                  <h3 className="text-xl font-bold text-red-950">{title}</h3>
-                  <p className="mt-3 leading-7 text-stone-700">{text}</p>
-                </div>
+        </section>
+
+        <section id="how-it-works" className="mx-auto max-w-7xl px-5 py-24 lg:px-8">
+          <div className="grid gap-12 lg:grid-cols-[.8fr_1.2fr] lg:items-end">
+            <div>
+              <p className="text-sm font-bold uppercase tracking-[0.2em] text-red-800">How it works</p>
+              <h2 className="mt-3 text-4xl font-bold tracking-tight text-red-950 sm:text-5xl">Protection in three simple steps.</h2>
+            </div>
+            <p className="max-w-2xl text-lg leading-8 text-stone-600">No confusing paperwork maze. Tell us about your companion, review your details and finish your application online.</p>
+          </div>
+          <div className="mt-14 grid gap-5 md:grid-cols-3">
+            {steps.map(([number, title, text]) => (
+              <article key={number} className="relative overflow-hidden rounded-3xl border border-red-950/10 bg-white p-7 shadow-sm">
+                <span className="absolute right-5 top-2 text-7xl font-black text-red-950/5">{number}</span>
+                <span className="grid size-12 place-items-center rounded-2xl bg-red-950 font-bold text-white">{number}</span>
+                <h3 className="mt-8 text-xl font-bold text-red-950">{title}</h3>
+                <p className="mt-3 leading-7 text-stone-600">{text}</p>
               </article>
             ))}
           </div>
         </section>
 
-        <section id="testimonies" className="bg-red-950 px-5 py-24 text-white lg:px-8">
+        <section id="services" className="bg-[#f2e7e4] px-5 py-24 lg:px-8">
           <div className="mx-auto max-w-7xl">
-            <p className="text-sm font-bold uppercase tracking-[0.2em] text-red-200">Testimonies</p>
-            <h2 className="mt-3 max-w-xl text-4xl font-bold tracking-tight sm:text-5xl">Loved by people who love their pets.</h2>
-            <div className="mt-12 grid gap-6 lg:grid-cols-3">
-              {testimonials.map((text) => (
-                <figure key={text} className="flex flex-col rounded-3xl bg-white/10 p-7 ring-1 ring-white/15">
-                  <blockquote className="flex-1 text-lg leading-8 text-red-50">“{text}”</blockquote>
-                  <figcaption className="mt-7 flex items-center gap-3">
-                    <img src={avatar} alt="" className="size-11 rounded-full border-2 border-red-200 object-cover" />
-                    <div><p className="font-semibold">Alamu Gold</p><p className="text-sm text-red-200">Pet parent</p></div>
-                  </figcaption>
-                </figure>
+            <div className="mx-auto max-w-2xl text-center">
+              <p className="text-sm font-bold uppercase tracking-[0.2em] text-red-800">What cover can help with</p>
+              <h2 className="mt-3 text-4xl font-bold tracking-tight text-red-950 sm:text-5xl">Care for more of life’s unexpected moments.</h2>
+              <p className="mt-5 leading-7 text-stone-600">Available benefits and limits depend on the plan you select. We keep the important details visible before you commit.</p>
+            </div>
+            <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+              {services.map(([icon, title, text]) => (
+                <article key={title} className="rounded-3xl bg-white p-7 shadow-sm ring-1 ring-red-950/5 transition hover:-translate-y-1 hover:shadow-lg">
+                  <span className="grid size-12 place-items-center rounded-2xl bg-red-100 text-2xl font-bold text-red-950" aria-hidden="true">{icon}</span>
+                  <h3 className="mt-6 text-xl font-bold text-red-950">{title}</h3>
+                  <p className="mt-3 text-sm leading-6 text-stone-600">{text}</p>
+                </article>
               ))}
+            </div>
+            <p className="mt-8 text-center text-xs leading-5 text-stone-500">Coverage is subject to eligibility, waiting periods, limits and exclusions shown in your policy documents.</p>
+          </div>
+        </section>
+
+        <section id="why-maya" className="mx-auto grid max-w-7xl gap-14 px-5 py-24 lg:grid-cols-2 lg:items-center lg:px-8">
+          <div className="relative">
+            <div className="absolute -inset-4 -z-10 rotate-2 rounded-[2.5rem] bg-red-950/10" />
+            <img src={vetImage} alt="Veterinarian comforting a dog" className="h-[440px] w-full rounded-[2rem] bg-white object-cover shadow-xl sm:h-[560px]" />
+          </div>
+          <div>
+            <p className="text-sm font-bold uppercase tracking-[0.2em] text-red-800">Why Maya</p>
+            <h2 className="mt-3 text-4xl font-bold tracking-tight text-red-950 sm:text-5xl">Built around better care decisions.</h2>
+            <p className="mt-5 text-lg leading-8 text-stone-600">Insurance should make a difficult day easier—not add another layer of uncertainty. Maya is designed around clarity, continuity and support.</p>
+            <ul className="mt-8 space-y-5">
+              {[
+                ['Plain-language protection', 'Understand the essentials without decoding industry jargon.'],
+                ['Your information stays with you', 'Save progress and return whenever you are ready to continue.'],
+                ['A complete view of your pet', 'Keep health and application details together in one simple journey.'],
+              ].map(([title, text]) => (
+                <li key={title} className="flex gap-4">
+                  <span className="mt-1 grid size-7 shrink-0 place-items-center rounded-full bg-emerald-100 text-sm font-bold text-emerald-800">✓</span>
+                  <div><p className="font-bold text-red-950">{title}</p><p className="mt-1 leading-6 text-stone-600">{text}</p></div>
+                </li>
+              ))}
+            </ul>
+            <Link to="/signup" className="mt-9 inline-flex rounded-xl bg-red-950 px-7 py-3.5 font-semibold text-white transition hover:bg-red-900">Start an application</Link>
+          </div>
+        </section>
+
+        <section id="faq" className="border-y border-red-950/10 bg-white px-5 py-24 lg:px-8">
+          <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.7fr_1fr]">
+            <div>
+              <p className="text-sm font-bold uppercase tracking-[0.2em] text-red-800">Common questions</p>
+              <h2 className="mt-3 text-4xl font-bold tracking-tight text-red-950 sm:text-5xl">Know before you begin.</h2>
+              <p className="mt-5 leading-7 text-stone-600">A few quick answers about the application experience.</p>
+            </div>
+            <div className="divide-y divide-red-950/10 border-y border-red-950/10">
+              {faqs.map(([question, answer]) => (
+                <details key={question} className="group py-5">
+                  <summary className="flex cursor-pointer list-none items-center justify-between gap-5 font-bold text-red-950">
+                    {question}<span className="text-2xl font-light transition group-open:rotate-45">+</span>
+                  </summary>
+                  <p className="max-w-2xl pr-10 pt-3 leading-7 text-stone-600">{answer}</p>
+                </details>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="px-5 py-20 lg:px-8">
+          <div className="relative mx-auto max-w-7xl overflow-hidden rounded-[2.5rem] bg-red-950 px-6 py-16 text-center text-white sm:px-12">
+            <div className="absolute -left-20 -top-32 size-80 rounded-full border-[60px] border-white/5" />
+            <div className="absolute -bottom-36 -right-20 size-80 rounded-full border-[60px] border-white/5" />
+            <div className="relative mx-auto max-w-2xl">
+              <p className="text-sm font-bold uppercase tracking-[0.2em] text-red-200">Ready when you are</p>
+              <h2 className="mt-3 text-4xl font-bold tracking-tight sm:text-5xl">Give their next adventure a little more protection.</h2>
+              <p className="mt-5 text-lg leading-8 text-red-100">Create your profile, add your pet and review everything before submitting.</p>
+              <Link to="/signup" className="mt-8 inline-flex rounded-xl bg-white px-7 py-3.5 font-bold text-red-950 transition hover:bg-red-50">Get started now</Link>
             </div>
           </div>
         </section>

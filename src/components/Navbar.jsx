@@ -4,9 +4,9 @@ import Brand from './Brand'
 
 const links = [
   ['Home', '/'],
-  ['Services', '/#services'],
-  ['Testimonies', '/#testimonies'],
-  ['Contact', '/#contact'],
+  ['How it works', '/#how-it-works'],
+  ['Coverage', '/#services'],
+  ['FAQ', '/#faq'],
 ]
 
 export default function Navbar() {
@@ -26,7 +26,13 @@ export default function Navbar() {
           <Link to="/login" className="px-4 py-2 text-sm font-semibold text-red-950">Log in</Link>
           <Link to="/signup" className="rounded-xl bg-red-950 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-red-900">Get started</Link>
         </div>
-        <button type="button" onClick={() => setOpen((value) => !value)} className="grid size-11 place-items-center rounded-xl border border-red-950/15 text-2xl text-red-950 md:hidden" aria-label="Toggle navigation" aria-expanded={open}>☰</button>
+        <button type="button" onClick={() => setOpen((value) => !value)} className="grid size-11 place-items-center rounded-xl border border-red-950/15 text-red-950 md:hidden" aria-label="Toggle navigation" aria-expanded={open}>
+          <span className="flex w-5 flex-col gap-1.5" aria-hidden="true">
+            <span className="h-0.5 w-full rounded bg-current" />
+            <span className="h-0.5 w-full rounded bg-current" />
+            <span className="h-0.5 w-full rounded bg-current" />
+          </span>
+        </button>
       </nav>
       {open && (
         <div className="border-t border-red-950/10 px-5 py-4 md:hidden">

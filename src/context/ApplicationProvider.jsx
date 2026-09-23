@@ -4,11 +4,13 @@ import { ApplicationContext } from './applicationContext'
 const storageKey = 'kindredpaw-application'
 const emptyOwner = { name: '', email: '', phone: '', address: '', photo: '' }
 const emptyPet = { name: '', type: '', breed: '', birthday: '', weight: '', medication: '', medicationDetails: '', surgery: '', photo: '' }
+const emptyQuote = { planId: '', planName: '', billing: 'monthly', monthlyPremium: 0, annualPremium: 0, annualLimit: '', reimbursement: '', deductible: '' }
 
 const emptyApplication = {
   account: { name: '', email: '' },
   owner: emptyOwner,
   pet: emptyPet,
+  quote: emptyQuote,
   submitted: false,
   reference: '',
   pets: [],
@@ -29,6 +31,7 @@ function loadApplication() {
       account: { ...emptyApplication.account, ...saved.account },
       owner: { ...emptyOwner, ...saved.owner, photo: '' },
       pet: { ...emptyPet, ...saved.pet, photo: '' },
+      quote: { ...emptyQuote, ...saved.quote },
       pets: saved.pets || [],
       applications: saved.applications || [],
       claims: saved.claims || [],
@@ -72,17 +75,22 @@ export default function ApplicationProvider({ children }) {
   }, [application])
 
   const updateSection = (section, value) => {
-    setApplication((current) => ({
-      ...current,
-      [section]: typeof value === 'function' ? value(current[section]) : value,
-      submitted: section === 'owner' || section === 'pet' ? false : current.submitted,
-      reference: section === 'owner' || section === 'pet' ? '' : current.reference,
-    }))
+    setApplication((current) => {
+      const next = {
+        ...current,
+        [section]: typeof value === 'function' ? value(current[section]) : value,
+        submitted: ['owner', 'pet', 'quote'].includes(section) ? false : current.submitted,
+        reference: ['owner', 'pet', 'quote'].includes(section) ? '' : current.reference,
+      }
+      if (section === 'pet') next.quote = emptyQuote
+      return next
+    })
   }
 
   const submitApplication = () => {
     setApplication((current) => {
       if (current.submitted && current.reference) return current
+      if (!current.quote.planId) return current
       const reference = `KP-${Date.now().toString(36).slice(-6).toUpperCase()}`
       const petId = makeId('pet')
       const now = new Date().toISOString()
@@ -95,7 +103,14 @@ export default function ApplicationProvider({ children }) {
         submittedAt: now,
         status: 'Submitted',
         policyStatus: 'Under review',
-        plan: 'Complete Care',
+        plan: current.quote.planName,
+        planId: current.quote.planId,
+        billing: current.quote.billing,
+        monthlyPremium: current.quote.monthlyPremium,
+        annualPremium: current.quote.annualPremium,
+        annualLimit: current.quote.annualLimit,
+        reimbursement: current.quote.reimbursement,
+        deductible: current.quote.deductible,
       }
       return {
         ...current,
@@ -111,6 +126,7 @@ export default function ApplicationProvider({ children }) {
     setApplication((current) => ({
       ...current,
       pet: emptyPet,
+      quote: emptyQuote,
       submitted: false,
       reference: '',
     }))

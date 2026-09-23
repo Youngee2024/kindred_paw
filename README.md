@@ -6,6 +6,8 @@
 
 A responsive pet-insurance experience with multi-step onboarding and a persistent customer dashboard.
 
+**Repository:** [github.com/Youngee2024/kindred_paw](https://github.com/Youngee2024/kindred_paw)
+
 ## Live demo
 
 [https://maya-insurance.vercel.app](https://maya-insurance.vercel.app)
@@ -15,6 +17,8 @@ A responsive pet-insurance experience with multi-step onboarding and a persisten
 - Responsive landing page and authentication screens.
 - Multi-step owner and pet insurance application.
 - Review, confirmation and application reference generation.
+- Personalised premium estimates based on pet age, breed, weight and medical history.
+- Side-by-side coverage comparison with monthly and discounted annual billing.
 - Customer dashboard at `/dashboard`.
 - Submitted application and policy-status tracking.
 - Multiple pet profiles with add, edit and remove actions.

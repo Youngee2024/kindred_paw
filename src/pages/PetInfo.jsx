@@ -17,7 +17,7 @@ export default function PetInfo() {
     const file = event.target.files?.[0]
     if (file) updateSection('pet', (current) => ({ ...current, photo: URL.createObjectURL(file) }))
   }
-  const submit = (event) => { event.preventDefault(); navigate('/complete') }
+  const submit = (event) => { event.preventDefault(); navigate('/quote') }
 
   return (
     <OnboardingShell step={2} title="Now, meet your pet" description="A few health details help us understand the right protection for your companion.">

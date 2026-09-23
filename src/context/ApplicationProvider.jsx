@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { ApplicationContext } from './applicationContext'
 
 const storageKey = 'kindredpaw-application'
@@ -16,6 +16,8 @@ const emptyApplication = {
   pets: [],
   applications: [],
   claims: [],
+  payments: [],
+  lastPaymentReference: '',
 }
 
 const makeId = (prefix) => `${prefix}-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 7)}`
@@ -35,6 +37,7 @@ function loadApplication() {
       pets: saved.pets || [],
       applications: saved.applications || [],
       claims: saved.claims || [],
+      payments: saved.payments || [],
     }
 
     // Migrate applications submitted before the dashboard existed.
@@ -81,16 +84,17 @@ export default function ApplicationProvider({ children }) {
         [section]: typeof value === 'function' ? value(current[section]) : value,
         submitted: ['owner', 'pet', 'quote'].includes(section) ? false : current.submitted,
         reference: ['owner', 'pet', 'quote'].includes(section) ? '' : current.reference,
+        lastPaymentReference: ['owner', 'pet', 'quote'].includes(section) ? '' : current.lastPaymentReference,
       }
       if (section === 'pet') next.quote = emptyQuote
       return next
     })
   }
 
-  const submitApplication = () => {
+  const submitApplication = useCallback(() => {
     setApplication((current) => {
       if (current.submitted && current.reference) return current
-      if (!current.quote.planId) return current
+      if (!current.quote.planId || !current.lastPaymentReference) return current
       const reference = `KP-${Date.now().toString(36).slice(-6).toUpperCase()}`
       const petId = makeId('pet')
       const now = new Date().toISOString()
@@ -111,6 +115,8 @@ export default function ApplicationProvider({ children }) {
         annualLimit: current.quote.annualLimit,
         reimbursement: current.quote.reimbursement,
         deductible: current.quote.deductible,
+        paymentReference: current.lastPaymentReference,
+        paymentStatus: current.lastPaymentReference ? 'Paid' : 'Pending',
       }
       return {
         ...current,
@@ -120,7 +126,7 @@ export default function ApplicationProvider({ children }) {
         applications: [applicationRecord, ...current.applications],
       }
     })
-  }
+  }, [])
 
   const resetApplication = () => {
     setApplication((current) => ({
@@ -129,6 +135,7 @@ export default function ApplicationProvider({ children }) {
       quote: emptyQuote,
       submitted: false,
       reference: '',
+      lastPaymentReference: '',
     }))
   }
 
@@ -170,6 +177,19 @@ export default function ApplicationProvider({ children }) {
     return claimRecord.reference
   }
 
+  const recordPayment = useCallback((payment) => {
+    setApplication((current) => {
+      if (current.payments.some((item) => item.reference === payment.reference)) {
+        return { ...current, lastPaymentReference: payment.reference }
+      }
+      return {
+        ...current,
+        payments: [{ ...payment, recordedAt: new Date().toISOString() }, ...current.payments],
+        lastPaymentReference: payment.reference,
+      }
+    })
+  }, [])
+
   const value = {
     application,
     updateSection,
@@ -180,6 +200,7 @@ export default function ApplicationProvider({ children }) {
     removePet,
     updateProfile,
     submitClaim,
+    recordPayment,
   }
 
   return <ApplicationContext.Provider value={value}>{children}</ApplicationContext.Provider>

@@ -9,6 +9,7 @@ const sections = [
   ['applications', 'Applications'],
   ['pets', 'My pets'],
   ['claims', 'Claims'],
+  ['payments', 'Payments'],
   ['profile', 'Personal details'],
 ]
 
@@ -68,7 +69,7 @@ function SectionHeading({ eyebrow, title, description, action, onAction }) {
 export default function Dashboard() {
   const navigate = useNavigate()
   const { application, addPet, updatePet, removePet, updateProfile, submitClaim, resetApplication } = useApplication()
-  const { owner, account, pets, applications, claims } = application
+  const { owner, account, pets, applications, claims, payments } = application
   const [section, setSection] = useState('overview')
   const [petModal, setPetModal] = useState(false)
   const [editingPet, setEditingPet] = useState(null)
@@ -221,6 +222,13 @@ export default function Dashboard() {
             <div>
               <SectionHeading eyebrow="Claims centre" title="Claims" description="Submit veterinary expenses and track progress from receipt to payment." action={pets.length ? 'Submit a claim' : undefined} onAction={() => setClaimModal(true)} />
               {!pets.length ? <EmptyState title="Add a pet before claiming" text="Claims need to be connected to one of your pet profiles." action="Add a pet" onAction={() => { setSection('pets'); openPetModal() }} /> : claims.length ? <div className="overflow-hidden rounded-3xl border border-[#25483a]/10 bg-white shadow-sm"><div className="hidden grid-cols-[1fr_1fr_1fr_1fr] gap-4 bg-[#f1e6d7] px-6 py-4 text-xs font-bold uppercase tracking-wider text-stone-500 sm:grid"><span>Claim</span><span>Pet</span><span>Amount</span><span>Status</span></div>{claims.map((claim) => { const pet = pets.find((item) => item.id === claim.petId); return <div key={claim.id} className="grid gap-3 border-t border-[#25483a]/10 px-6 py-5 first:border-t-0 sm:grid-cols-[1fr_1fr_1fr_1fr] sm:items-center"><div><p className="font-bold text-[#25483a]">{claim.reference}</p><p className="text-xs text-stone-500">{formatDate(claim.submittedAt)}</p></div><p className="font-semibold">{pet?.name || 'Pet profile removed'}</p><p>{formatCurrency(claim.amount)}</p><div><StatusPill tone="warm">{claim.status}</StatusPill></div></div>})}</div> : <EmptyState title="No claims submitted" text="When you need to claim for eligible veterinary care, start here and follow its status." action="Submit your first claim" onAction={() => setClaimModal(true)} />}
+            </div>
+          )}
+
+          {section === 'payments' && (
+            <div>
+              <SectionHeading eyebrow="Billing" title="Payments and receipts" description="Review successful premium payments and open printable receipts." />
+              {payments.length ? <div className="overflow-hidden rounded-3xl border border-[#25483a]/10 bg-white shadow-sm"><div className="hidden grid-cols-[1fr_1fr_1fr_1fr_auto] gap-4 bg-[#f1e6d7] px-6 py-4 text-xs font-bold uppercase tracking-wider text-stone-500 md:grid"><span>Reference</span><span>Cover</span><span>Date</span><span>Amount</span><span>Receipt</span></div>{payments.map((payment) => <div key={payment.reference} className="grid gap-3 border-t border-[#25483a]/10 px-6 py-5 first:border-t-0 md:grid-cols-[1fr_1fr_1fr_1fr_auto] md:items-center"><div><p className="font-bold text-[#25483a]">{payment.reference}</p><p className="text-xs capitalize text-stone-500">{payment.channel}</p></div><div><p className="font-semibold">{payment.planName}</p><p className="text-xs capitalize text-stone-500">{payment.petName} · {payment.billing}</p></div><p className="text-sm">{formatDate(payment.paidAt || payment.recordedAt)}</p><p className="font-bold">{formatCurrency(payment.amount)}</p><Link to={`/receipt/${encodeURIComponent(payment.reference)}`} className="rounded-lg bg-[#f3dec8] px-4 py-2 text-center text-xs font-bold text-[#25483a]">View receipt</Link></div>)}</div> : <EmptyState title="No payment history" text="Verified premium payments and receipts will appear here." />}
             </div>
           )}
 

@@ -21,7 +21,7 @@ function Detail({ label, value }) {
 
 export default function CompleteInfo() {
   const navigate = useNavigate()
-  const { application, submitApplication, resetApplication } = useApplication()
+  const { application, resetApplication } = useApplication()
   const [confirmed, setConfirmed] = useState(false)
   const { owner, pet, quote, submitted, reference } = application
   const ownerComplete = owner.name && owner.email && owner.phone && owner.address
@@ -83,7 +83,7 @@ export default function CompleteInfo() {
           </label>
           <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-between">
             <button type="button" onClick={() => navigate('/quote')} className="rounded-xl border border-[#25483a]/20 px-7 py-3.5 font-semibold text-[#25483a]">Back</button>
-            <button type="button" onClick={submitApplication} disabled={!confirmed} className="rounded-xl bg-[#25483a] px-7 py-3.5 font-semibold text-white transition hover:bg-[#1d392e] disabled:cursor-not-allowed disabled:opacity-40">Submit application</button>
+            <button type="button" onClick={() => navigate('/payment')} disabled={!confirmed} className="rounded-xl bg-[#25483a] px-7 py-3.5 font-semibold text-white transition hover:bg-[#1d392e] disabled:cursor-not-allowed disabled:opacity-40">Continue to secure payment</button>
           </div>
         </div>
       </OnboardingShell>

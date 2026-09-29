@@ -10,7 +10,7 @@ A responsive pet-insurance experience with multi-step onboarding, personalized q
 
 ## Live demo
 
-[https://maya-insurance.vercel.app](https://maya-insurance.vercel.app)
+[https://kindred-paw-youngee.vercel.app](https://kindred-paw-youngee.vercel.app/)
 
 ## Features
 
